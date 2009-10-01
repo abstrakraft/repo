@@ -71,7 +71,7 @@ def relpath(dst, src):
   else:
     top = os.path.dirname(top)
 
-  tmp = src
+  tmp = os.path.normpath(src)
   rel = ''
   while top != tmp:
     rel += '../'
@@ -279,7 +279,7 @@ class Project(object):
     return os.path.exists(os.path.join(g, 'rebase-apply')) \
         or os.path.exists(os.path.join(g, 'rebase-merge')) \
         or os.path.exists(os.path.join(w, '.dotest'))
-    
+
   def IsDirty(self, consider_untracked=True):
     """Is the working directory modified in some way?
     """
@@ -412,7 +412,7 @@ class Project(object):
 
       try: f = df[p]
       except KeyError: f = None
- 
+
       if i: i_status = i.status.upper()
       else: i_status = '-'
 
